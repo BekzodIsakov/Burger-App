@@ -1,15 +1,24 @@
 import React from 'react';
-import classes from './Burger.css';
+import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const Burger = () => {
-  console.log(classes);
+const Burger = ({ ingredients }) => {
+  let transformedIngredients = Object.keys(ingredients)
+    .map((key) =>
+      [...Array(ingredients[key])].map((_, index) => (
+        <BurgerIngredient key={key + index} type={key} />
+      ))
+    )
+    .reduce((arr, el) => arr.concat(el), []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please start adding ingredients</p>;
+  }
+
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type='bread-top' />
-      <BurgerIngredient type='salad' />
-      <BurgerIngredient type='meat' />
-      <BurgerIngredient type='cheese' />
+      {transformedIngredients}
       <BurgerIngredient type='bread-bottom' />
     </div>
   );
