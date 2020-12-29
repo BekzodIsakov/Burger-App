@@ -10,11 +10,11 @@ const controls = [
 ];
 
 const BuildControls = ({
-  addIngredientHandler,
-  removeIngredientHandler,
   ingredients,
   price,
   isPurchasable,
+  addIngredientHandler,
+  removeIngredientHandler,
   order,
 }) => {
   return (
