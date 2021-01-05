@@ -1,12 +1,13 @@
-import { object } from 'prop-types';
 import React from 'react';
 import classes from './Burger.module.css';
+import { withRouter } from 'react-router-dom';
+
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const Burger = ({ ingredients }) => {
-  let transformedIngredients = Object.keys(ingredients)
+const Burger = (props) => {
+  let transformedIngredients = Object.keys(props.ingredients)
     .map((key) =>
-      [...Array(ingredients[key])].map((_, index) => (
+      [...Array(props.ingredients[key])].map((_, index) => (
         <BurgerIngredient key={key + index} type={key} />
       ))
     )
@@ -25,4 +26,4 @@ const Burger = ({ ingredients }) => {
   );
 };
 
-export default Burger;
+export default withRouter(Burger); //in this component we need {match, history} props provided by react-router. But since this is not a direct component used by Route withRouter can be used to obtain those props
