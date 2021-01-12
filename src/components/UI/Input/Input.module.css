@@ -1,0 +1,20 @@
+.Input {
+  display: block;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Input:focus {
+  background-color: #ddd;
+}
+
+.Invalid {
+  border-color: coral;
+  background-color: rgb(255, 228, 218);
+}
