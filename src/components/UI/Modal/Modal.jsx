@@ -4,9 +4,10 @@ import Backdrop from '../Backdrop/Backdrop';
 import classes from './Modal.module.css';
 
 class Modal extends Component {
+  // to avoid unnecessary update
   shouldComponentUpdate(nextProps, nextState) {
     return (
-      nextProps.show !== this.props.show ||
+      nextProps.show !== this.props.show &&
       nextProps.children !== this.props.children
     );
   }
