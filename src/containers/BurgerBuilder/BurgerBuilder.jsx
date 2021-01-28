@@ -6,9 +6,12 @@ import Burger from '../../components/Burger/Burger';
 import OrderSummary from '../../components/Burger/Order/OrderSummary';
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../../hoc/Auxiliary';
-import axios from '../../axios-instances';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import * as actionTypes from '../../store/Actions';
+import {
+  addIngredient,
+  removeIngredient,
+  initIngredients,
+} from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
   state = {
@@ -16,12 +19,9 @@ class BurgerBuilder extends Component {
     loading: false,
   };
 
-  // componentDidMount() {
-  //   axios
-  //     .get('/ingredients.json')
-  //     .then((res) => this.setState({ ingredients: res.data }))
-  //     .catch((err) => console.log(err));
-  // }
+  componentDidMount() {
+    this.props.initIngredients();
+  }
 
   updatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients)
@@ -60,7 +60,11 @@ class BurgerBuilder extends Component {
   render() {
     let orderSummary = null;
 
-    let burger = <Spinner />;
+    let burger = this.props.error ? (
+      <p>Could not load ingredients</p>
+    ) : (
+      <Spinner />
+    );
 
     if (this.props.ingredients) {
       burger = (
@@ -106,23 +110,17 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addIngredient: (ingredient) =>
-      dispatch({
-        type: actionTypes.ADD_INGREDIENT,
-        ingredient,
-      }),
-    removeIngredient: (ingredient) =>
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredient,
-      }),
+    addIngredient: (ingredient) => dispatch(addIngredient(ingredient)),
+    removeIngredient: (ingredient) => dispatch(removeIngredient(ingredient)),
+    initIngredients: () => dispatch(initIngredients()),
   };
 };
 
