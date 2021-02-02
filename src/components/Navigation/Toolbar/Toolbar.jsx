@@ -4,13 +4,13 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 import classes from './Toolbar.module.css';
 
-const Toolbar = ({ openSideDrawer }) => {
+const Toolbar = ({ openSideDrawer, isAuthenticated }) => {
   return (
     <header className={classes.Toolbar}>
       <DrawerToggle openSideDrawer={openSideDrawer} />
       <Logo height='80%' />
       <nav className={classes.DesktopOnly}>
-        <NavigationItems />
+        <NavigationItems isAuthenticated={isAuthenticated} />
       </nav>
     </header>
   );
