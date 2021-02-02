@@ -12,6 +12,7 @@ import {
   removeIngredient,
   initIngredients,
 } from '../../store/actions/index';
+import { Redirect } from 'react-router-dom';
 
 class BurgerBuilder extends Component {
   state = {
@@ -32,7 +33,11 @@ class BurgerBuilder extends Component {
   };
 
   isPurchasingHandler = () => {
-    this.setState({ isPurchasing: true });
+    if (this.props.isAuthenticated) {
+      this.setState({ isPurchasing: true });
+    } else {
+      this.props.history.push('/auth');
+    }
   };
 
   isPurchasingCancelHandler = () => {
@@ -77,6 +82,7 @@ class BurgerBuilder extends Component {
             price={this.props.totalPrice}
             isPurchasable={this.updatePurchaseState(this.props.ingredients)}
             order={this.isPurchasingHandler}
+            isAuthenticated={this.props.isAuthenticated}
           />
         </Aux>
       );
@@ -113,6 +119,7 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
+    isAuthenticated: state.authReducer.idToken,
   };
 };
 

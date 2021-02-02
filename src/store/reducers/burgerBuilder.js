@@ -5,6 +5,7 @@ const initialState = {
   ingredients: null,
   totalPrice: 4,
   error: false,
+  isBuilding: false,
 };
 
 const INGREDIENT_PRICES = {
@@ -21,6 +22,7 @@ const addIngredient = (state, action) => {
       [action.ingredient]: state.ingredients[action.ingredient] + 1,
     },
     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredient],
+    isBuilding: true,
   });
 };
 
@@ -35,6 +37,8 @@ const ingredients = (state = initialState, action) => {
           bacon: action.ingredients.bacon,
         },
         totalPrice: 4,
+        error: false,
+        isBuilding: false,
       });
     case actionTypes.SET_INGREDIENTS_FAILED:
       return updateState(state, { error: true });
@@ -47,6 +51,7 @@ const ingredients = (state = initialState, action) => {
           [action.ingredient]: state.ingredients[action.ingredient] - 1,
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredient],
+        isBuilding: true,
       });
     default:
       return state;
