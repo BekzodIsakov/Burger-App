@@ -118,7 +118,7 @@ class ContactData extends Component {
     //     this.props.history.push('/');
     //   })
     //   .catch(() => this.setState({ loading: false }));
-    this.props.purchaseBurgerStart(order);
+    this.props.purchaseBurgerStart(order, this.props.token);
   };
 
   validate(value, validation) {
@@ -244,12 +244,14 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     isLoading: state.orderReducer.isLoading,
+    token: state.authReducer.idToken,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    purchaseBurgerStart: (order) => dispatch(purchaseBurgerStart(order)),
+    purchaseBurgerStart: (order, token) =>
+      dispatch(purchaseBurgerStart(order, token)),
   };
 };
 
