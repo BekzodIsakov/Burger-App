@@ -23,7 +23,7 @@ const Order = ({ order }) => {
     <div className={classes.Order}>
       <p>Ingredients: {ingredientOutput}</p>
       <p>
-        Price: <strong>{order.totalPrice}</strong>
+        Price: <strong>{order.totalPrice.toFixed(2)}</strong>
       </p>
     </div>
   );
